@@ -2,6 +2,10 @@
 
 **Scholarly** is a lightweight, powerful Chrome extension that transforms any online article into a personalized, interactive learning experience. Whether you're prepping for a quiz, expanding your vocabulary, or just trying to remember what you read — Scholarly has your back.
 
+## ▶ Video Demo
+
+https://youtu.be/vuYdxk2UotU?si=e7cD8ooxYwwIQnuo
+
 ---
 
 ## ✨ Features
