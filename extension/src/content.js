@@ -1,20 +1,4 @@
-// content.js - the content scripts which is run in the context of web pages, and has access
-// to the DOM and other web APIs.
 
-// Example usage:
-// const message = {
-//     action: 'classify',
-//     text: 'text to classify',
-// }
-// chrome.runtime.sendMessage(message, (response) => {
-//     console.log('received user data', response)
-// });
-
-//TODO for summarization
-//  -Text coloring is off
-
-//TODO 
-//  -Citation Generation?
     import { NoRepeatNGramLogitsProcessor } from "@huggingface/transformers";
 import { Readability } from "@mozilla/readability";
 
@@ -91,7 +75,6 @@ spinner.style.cssText = `
   display: none; /* hidden by default */
 `;
 
-// Add keyframes for spin animation
 const styleSheet = document.createElement("style");
 styleSheet.type = "text/css";
 styleSheet.innerText = `
@@ -102,7 +85,6 @@ styleSheet.innerText = `
 `;
 document.head.appendChild(styleSheet);
 
-// Append spinner somewhere visible, e.g., inside contentDiv
 contentDiv.appendChild(spinner);
 
     const clone = document.cloneNode(true);
@@ -174,7 +156,6 @@ contentDiv.appendChild(spinner);
 }
 
 async function qgen(part) {
-  // Inject CSS only once
   // console.log("Generating");
   if (!document.getElementById('qa-style')) {
     const style = document.createElement('style');
@@ -315,8 +296,8 @@ function showDefinitionTooltip(word, definitions) {
     tooltip = document.createElement('div');
     tooltip.id = 'definition-tooltip';
     tooltip.style.position = 'fixed';
-    tooltip.style.background = 'rgb(174, 255, 181)'; // Soft yellow
-    tooltip.style.color = 'rgb(62, 83, 62)';      // Dark gray text
+    tooltip.style.background = 'rgb(174, 255, 181)'; 
+    tooltip.style.color = 'rgb(62, 83, 62)';     
     tooltip.style.border = '1px solid rgb(151, 253, 110)';
     tooltip.style.padding = '10px';
     tooltip.style.zIndex = 9999;

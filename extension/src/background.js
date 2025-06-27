@@ -1,4 +1,4 @@
-// background.js - Handles requests from the UI, runs the model, then sends back a response
+
 
 import { pipeline   } from '@huggingface/transformers';
 class PipelineSingleton {
@@ -31,7 +31,6 @@ const classify = async (text) => {
         });
 
 
-    // Actually run the model on the input text
     let result = await model(text, {min_length : 40, max_length : 50});
     
     return result;
@@ -61,9 +60,9 @@ const qaModel = await pipeline(
 );
 const [{ generated_text }] = await qaModel(prompt, {
   max_new_tokens: 40,
-  temperature: 0.5,   // lower = safer, less nonsense
+  temperature: 0.5, 
   top_p: 0.9,
-  do_sample: true     // turn off (false) if you want deterministic output
+  do_sample: true
 });
 
   return generated_text;
@@ -120,14 +119,12 @@ const classifyLong = async (text) => {
         });
 
 
-    // Actually run the model on the input text
     let result = await model(text, {min_length : 100, max_length : 200});
     
     return result;
 };
 
 chrome.runtime.onInstalled.addListener(function () {
-    // Register a context menu item that will only show up for selection text.
     chrome.contextMenus.create({
         id: 'classify-selection',
         title: 'Classify "%s"',
@@ -136,20 +133,14 @@ chrome.runtime.onInstalled.addListener(function () {
 });
 
 chrome.contextMenus.onClicked.addListener(async (info, tab) => {
-    // Ignore context menu clicks that are not for classifications (or when there is no input)
     if (info.menuItemId !== 'classify-selection' || !info.selectionText) return;
 
-    // Perform classification on the selected text
     let result = await classify(info.selectionText);
 
-    // Do something with the result
     chrome.scripting.executeScript({
-        target: { tabId: tab.id },    // Run in the tab that the user clicked in
-        args: [result],               // The arguments to pass to the function
-        function: (result) => {       // The function to run
-            // NOTE: This function is run in the context of the web page, meaning that `document` is available.
-            // console.log('result', result)
-            // console.log('document', document)
+        target: { tabId: tab.id },  
+        args: [result],             
+        function: (result) => {  
         },
     });
 });
